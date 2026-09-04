@@ -43,19 +43,34 @@ If `config.md` already exists, show its values and ask what to change. Do not st
 
 3. **Get the vault.**
    - Laptop: ask for the local vault folder path. Symlink it to `<base>/vault`. Do not clone. Obsidian Git on the laptop handles sync. Skip the token step.
-   - Grok Bot: git needs a way to log in to GitHub. Offer two ways, token first:
+   - Grok Bot: git needs a way to log in to GitHub. First tell the user how to make a token:
+     "Make a token: GitHub, Settings, Developer settings, Personal access tokens, Fine-grained tokens, Generate new token. Repository access: only your vault repo. Permissions: Contents, Read and write. Copy it."
+     Then offer three ways to hand it over, in this order:
 
-   **Way 1, a token (fast).** Tell the user:
-   "Make a token: GitHub, Settings, Developer settings, Personal access tokens, Fine-grained tokens, Generate new token. Repository access: only your vault repo. Permissions: Contents, Read and write. Copy it and send it to me. I store it on this computer only and never repeat it. You can revoke it on GitHub any time."
-   When the token arrives, store it and clone:
+   **Way 1, paste it on the Bot's computer (token never enters the chat).** Write this script to `<base>/add-token.sh`:
+   ```sh
+   #!/bin/sh
+   printf 'GitHub username: '; read u
+   printf 'Paste token (hidden, then Enter): '; stty -echo; read t; stty echo; echo
+   git config --global credential.helper store
+   printf 'protocol=https\nhost=github.com\nusername=%s\npassword=%s\n' "$u" "$t" | git credential approve
+   echo "Token stored. Go back to the chat and say: continue"
+   ```
+   Then tell the user: "Open Agent Computer, take over, open a terminal, run `sh <base>/add-token.sh`, paste the token, press Enter. Then say continue." When they say continue, delete the script and clone:
+   ```bash
+   rm <base>/add-token.sh
+   git clone --branch <branch> https://github.com/<repo>.git <base>/vault
+   ```
+
+   **Way 2, send it in chat (fastest).** If the user sends the token in chat, store it and clone:
    ```bash
    git config --global credential.helper store
    printf 'protocol=https\nhost=github.com\nusername=<github username>\npassword=<token>\n' | git credential approve
    git clone --branch <branch> https://github.com/<repo>.git <base>/vault
    ```
-   Never print the token back. Never write it to `config.md` or any note. If the user prefers not to send it in chat, they can run the same two lines on Agent Computer themselves.
+   Never print the token back. Never write it to `config.md` or any note.
 
-   **Way 2, browser login.** If the user has no token or prefers login: "Open Agent Computer, take over, run `gh auth login`, pick GitHub.com, HTTPS, browser. Then say continue." Then run `gh auth setup-git` and clone as above.
+   **Way 3, browser login.** "Open Agent Computer, take over, run `gh auth login`, pick GitHub.com, HTTPS, browser. Then say continue." Then run `gh auth setup-git` and clone as above.
 
    If the clone fails with an auth error, show the error and ask which way to retry. Do not loop.
 

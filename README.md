@@ -110,10 +110,12 @@ Say `set up my vault`. It asks for:
 
 On Grok Bot it clones the repo, so git needs to log in to GitHub. Two ways:
 
-- **Token (fast).** GitHub → Settings → Developer settings → Fine-grained tokens.
+- **Token.** GitHub → Settings → Developer settings → Fine-grained tokens.
   Repository access: only your vault repo. Permissions: Contents, read and write.
-  Send it to the Bot. It's stored in git's credential store on the Bot's computer and
-  nowhere else. Revoke it on GitHub any time.
+  The Bot then gives you a tiny script to run on Agent Computer that asks for the
+  token with hidden input, so it never enters the chat. If you don't care, you can
+  also just send it in chat. Either way it lives only in git's credential store on
+  the Bot's computer. Revoke it on GitHub any time.
 - **Browser login.** Open Agent Computer, take over, run `gh auth login`.
 
 On a laptop it just points at your local vault folder and lets Obsidian Git do the sync.
