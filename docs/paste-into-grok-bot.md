@@ -42,8 +42,22 @@ If `config.md` already exists, show its values and ask what to change. Do not st
    - `timezone`: ask "Which timezone are you in?" Accept anything: a city ("Delhi"), a short name ("IST", "PST"), or an offset ("GMT+5:30"). You turn it into the IANA name yourself (Delhi, IST, GMT+5:30 are all `Asia/Kolkata`). Confirm in one line: "IST, so Asia/Kolkata." Never ask the user for the IANA name.
 
 3. **Get the vault.**
-   - Grok Bot: `git clone --branch <branch> https://github.com/<repo>.git <base>/vault`. If the clone asks for a login, stop and tell the user: "Open Agent Computer, take over, and sign in with `gh auth login` or store a fine-grained token with contents read and write on this repo only. Never paste the token in chat." Then retry once.
-   - Laptop: ask for the local vault folder path. Symlink it to `<base>/vault`. Do not clone. Obsidian Git on the laptop handles sync.
+   - Laptop: ask for the local vault folder path. Symlink it to `<base>/vault`. Do not clone. Obsidian Git on the laptop handles sync. Skip the token step.
+   - Grok Bot: git needs a way to log in to GitHub. Offer two ways, token first:
+
+   **Way 1, a token (fast).** Tell the user:
+   "Make a token: GitHub, Settings, Developer settings, Personal access tokens, Fine-grained tokens, Generate new token. Repository access: only your vault repo. Permissions: Contents, Read and write. Copy it and send it to me. I store it on this computer only and never repeat it. You can revoke it on GitHub any time."
+   When the token arrives, store it and clone:
+   ```bash
+   git config --global credential.helper store
+   printf 'protocol=https\nhost=github.com\nusername=<github username>\npassword=<token>\n' | git credential approve
+   git clone --branch <branch> https://github.com/<repo>.git <base>/vault
+   ```
+   Never print the token back. Never write it to `config.md` or any note. If the user prefers not to send it in chat, they can run the same two lines on Agent Computer themselves.
+
+   **Way 2, browser login.** If the user has no token or prefers login: "Open Agent Computer, take over, run `gh auth login`, pick GitHub.com, HTTPS, browser. Then say continue." Then run `gh auth setup-git` and clone as above.
+
+   If the clone fails with an auth error, show the error and ask which way to retry. Do not loop.
 
 4. **Check write access.** Run `git -C <base>/vault push --dry-run`. If it fails, report the exact error and stop. Do not create `config.md` until this passes.
 
@@ -70,7 +84,7 @@ Created by vault-setup on 2026-09-04.
 
 ## Rules
 
-- Never store a token, password, or cookie in `config.md` or anywhere else.
+- Never store a token, password, or cookie in `config.md` or any note. The git credential store on this computer is the only place a token may live.
 - Never touch `.obsidian/` or `.git/` inside the vault.
 - If the repo is public, warn the user once. Notes in a public repo are public.
 

@@ -59,7 +59,7 @@ Baked into the skill text, not optional.
 - Append by default. Replacing a note needs an explicit yes, and it tells you what would be lost first.
 - Never deletes, never renames, never force pushes.
 - Never touches `.obsidian/`, `.git/`, or binary files.
-- Never stores a token. You sign in on the Bot's computer yourself.
+- A token only ever lives in git's credential store on the Bot's computer. Never in a note, never in the config.
 - Only links to notes that actually exist. No made-up wikilinks.
 
 ## Setting up your vault
@@ -108,9 +108,13 @@ Say `set up my vault`. It asks for:
 - daily folder and date format: defaults are `Daily` and `YYYY-MM-DD`
 - your timezone, in any form: a city, "IST", or "GMT+5:30"
 
-On Grok Bot it clones the repo. When git asks for a login, open Agent Computer,
-take over, and run `gh auth login` (or store a fine-grained token scoped to that one
-repo). Don't paste a token into the chat.
+On Grok Bot it clones the repo, so git needs to log in to GitHub. Two ways:
+
+- **Token (fast).** GitHub → Settings → Developer settings → Fine-grained tokens.
+  Repository access: only your vault repo. Permissions: Contents, read and write.
+  Send it to the Bot. It's stored in git's credential store on the Bot's computer and
+  nowhere else. Revoke it on GitHub any time.
+- **Browser login.** Open Agent Computer, take over, run `gh auth login`.
 
 On a laptop it just points at your local vault folder and lets Obsidian Git do the sync.
 
