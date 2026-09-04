@@ -106,7 +106,7 @@ Say `set up my vault`. It asks for:
 - `repo`: `owner/name` of your vault repo
 - `branch`: usually `main`
 - daily folder and date format: defaults are `Daily` and `YYYY-MM-DD`
-- timezone: an IANA name like `Asia/Kolkata`
+- your city, so it gets the timezone right
 
 On Grok Bot it clones the repo. When git asks for a login, open Agent Computer,
 take over, and run `gh auth login` (or store a fine-grained token scoped to that one
