@@ -61,6 +61,7 @@ Rules for the content:
 - No `# <Title>` heading at the top. Obsidian shows the filename as the title.
 - Wikilinks: `[[Note Name]]` only for notes that exist. Check with `grep -rl` or `find` before linking. Search the vault for the topic and link the two or three closest notes.
 - Wikilinks inside YAML must be quoted.
+- If no related note exists, leave out the `## Related` section. No empty headings.
 - Plain markdown. No HTML.
 - Do not paste the chat. Do not include the Bot's reasoning or tool calls.
 - Aim for one screen. Long research gets a longer Details section, not a longer TL;DR.
