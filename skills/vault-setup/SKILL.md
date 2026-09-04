@@ -31,7 +31,7 @@ If `config.md` already exists, show its values and ask what to change. Do not st
    - `repo`: GitHub `owner/repo` of the vault. It must be a private repo.
    - `branch`: default `main`.
    - `daily_folder` and `daily_format`: default `Daily` and `YYYY-MM-DD`.
-   - `city`: where the user lives, for example "Delhi" or "New York". You turn it into the IANA timezone yourself (Delhi is `Asia/Kolkata`, New York is `America/New_York`). Confirm it in one line: "Delhi, so Asia/Kolkata." Do not ask the user for the IANA name.
+   - `timezone`: ask "Which timezone are you in?" Accept anything: a city ("Delhi"), a short name ("IST", "PST"), or an offset ("GMT+5:30"). You turn it into the IANA name yourself (Delhi, IST, GMT+5:30 are all `Asia/Kolkata`). Confirm in one line: "IST, so Asia/Kolkata." Never ask the user for the IANA name.
 
 3. **Get the vault.**
    - Grok Bot: `git clone --branch <branch> https://github.com/<repo>.git <base>/vault`. If the clone asks for a login, stop and tell the user: "Open Agent Computer, take over, and sign in with `gh auth login` or store a fine-grained token with contents read and write on this repo only. Never paste the token in chat." Then retry once.
@@ -50,7 +50,7 @@ branch: main
 vault: /workspace/obsidian-vault/vault
 daily_folder: Daily
 daily_format: YYYY-MM-DD
-city: Delhi
+timezone_answer: IST
 timezone: Asia/Kolkata
 folders: [Daily, Meetings, People, Projects]
 mode: git        # git on Grok Bot, local on a laptop
