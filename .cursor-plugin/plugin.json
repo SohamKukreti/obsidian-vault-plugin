@@ -2,11 +2,11 @@
   "name": "obsidian-vault",
   "displayName": "Obsidian Vault",
   "version": "0.1.0",
-  "description": "Write, append, search, and keep daily notes in an Obsidian vault stored in a private GitHub repo. Skills only. No server, no hosting. Works in Cursor and Grok Bot.",
+  "description": "Send Grok Bot's research and findings straight into your Obsidian vault as linked, sourced notes you can read locally. Also daily notes, append, and search. Skills only. No server, no hosting. Works in Cursor too.",
   "author": {
     "name": "Soham Kukreti"
   },
   "license": "MIT",
-  "keywords": ["obsidian", "notes", "daily-notes", "second-brain", "git", "grok-bot", "skills"],
+  "keywords": ["obsidian", "research", "notes", "second-brain", "daily-notes", "git", "grok-bot", "skills"],
   "logo": "assets/logo.svg"
 }
