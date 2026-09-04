@@ -19,7 +19,7 @@ No server. No API keys. Six skill files.
 
 | You say | What happens |
 |---|---|
-| "save this research" | A structured note in `Research/`: TL;DR, key findings with footnoted sources, open questions, links to related notes. Plus one line in today's daily note so you can find it. |
+| "save this research" | A structured note in `Research/`: TL;DR, key findings with footnoted sources, open questions, links to related notes. |
 | "add to today's daily note: ..." | Writes into `Daily/2026-09-04.md`, creating it if needed. |
 | "file this as a note called X" | New note with frontmatter and tags. |
 | "add to my X note: ..." | Appends one line. Touches nothing else. |

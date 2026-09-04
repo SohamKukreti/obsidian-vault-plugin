@@ -65,22 +65,10 @@ Rules for the content:
 - Do not paste the chat. Do not include the Bot's reasoning or tool calls.
 - Aim for one screen. Long research gets a longer Details section, not a longer TL;DR.
 
-## Also log it in today's daily note
-
-After writing the research note, add one line to today's daily note using the `daily-note` rules:
-
-```
-- <HH:mm> Research: [[<Title>]] - <one line summary>
-```
-
-Create the daily note if it is missing. This is how the user finds what the Bot did today.
-
 ## Commit and push (git mode only)
 
-One commit for both files:
-
 ```bash
-git -C <vault> add "<research path>" "<daily path>"
+git -C <vault> add "<research path>"
 git -C <vault> commit -m "research: <Title>"
 git -C <vault> push
 ```
@@ -89,15 +77,15 @@ If push is rejected: `git -C <vault> pull --rebase` once, then push again. If it
 
 ## Tell the user
 
-Two lines. The research note path and the daily note line. Example:
+One line. The research note path. Example:
 
 ```
 Saved Research/Obsidian sync options for cloud agents.md (5 sources, 2 open questions).
-Logged it in Daily/2026-09-04.md.
 ```
 
 ## Rules
 
+- Do not touch the daily note or any other note. This skill writes exactly one file.
 - Never delete or rename files.
 - Never touch `.obsidian/`, `.git/`, or binary files.
 - Never write secrets, tokens, or private data from sources into the vault.
