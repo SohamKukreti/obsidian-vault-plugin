@@ -93,8 +93,6 @@ For each file in skills/*/SKILL.md, save it as a skill using the name from its f
 Then list the skills you saved.
 ```
 
-Or paste the blocks from `docs/paste-into-grok-bot.md` one at a time.
-
 **Cursor.** Settings → Plugins → search "Obsidian Vault". Until it's listed, copy this
 repo into `~/.cursor/plugins/local/obsidian-vault` (a real copy, not a symlink; Cursor
 doesn't follow symlinks there) and reload the window.
@@ -147,10 +145,6 @@ skills/
   append-note/SKILL.md
   search-vault/SKILL.md
   vault-setup/SKILL.md
-docs/
-  paste-into-grok-bot.md   # all six skills, ready to paste
-  PLAN.md                  # research notes and design decisions
-  IDEAS.md                 # other plugins in the same shape
 ```
 
 ## Contributing
