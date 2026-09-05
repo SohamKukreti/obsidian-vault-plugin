@@ -60,11 +60,23 @@ Rules for the content:
 - Say what you are unsure about. A note that hides doubt is worse than no note.
 - No `# <Title>` heading at the top. Obsidian shows the filename as the title.
 - Wikilinks: `[[Note Name]]` only for notes that exist. Check with `grep -rl` or `find` before linking. Search the vault for the topic and link the two or three closest notes.
+- Read those two or three notes, not just their names. Use what they say: if the new research agrees, extends, or contradicts an old note, say so in one line under `## Related` (for example `- [[Old Note]] - this note updates the pricing figures there`).
+- Tags: reuse an existing topic tag from those related notes when one fits. Only make a new topic tag when none fits. Same topic, same tag, so Obsidian groups them.
 - Wikilinks inside YAML must be quoted.
 - If no related note exists, leave out the `## Related` section. No empty headings.
 - Plain markdown. No HTML.
 - Do not paste the chat. Do not include the Bot's reasoning or tool calls.
 - Aim for one screen. Long research gets a longer Details section, not a longer TL;DR.
+
+## Link back from old notes
+
+After writing the research note, check the related notes you read. If the new research answers or changes an item in an old note's `## Open questions`, or adds new facts on the same question, append one line to the end of that old note using the `append-note` rules:
+
+```
+- <YYYY-MM-DD> See [[<New Title>]] - <what changed, one line>
+```
+
+Only append. Never edit or remove the old text. At most three old notes per save. If nothing changed, do not touch them.
 
 ## Also log it in today's daily note
 
@@ -78,10 +90,10 @@ Create the daily note if it is missing. This is how the user finds what the Bot 
 
 ## Commit and push (git mode only)
 
-One commit for both files:
+One commit for all files, including any old notes you appended to:
 
 ```bash
-git -C <vault> add "<research path>" "<daily path>"
+git -C <vault> add "<research path>" "<daily path>" <old note paths if any>
 git -C <vault> commit -m "research: <Title>"
 git -C <vault> push
 ```
@@ -90,11 +102,12 @@ If push is rejected: `git -C <vault> pull --rebase` once, then push again. If it
 
 ## Tell the user
 
-Two lines. The research note path and the daily note line. Example:
+Two lines, plus one line per old note you linked back from. Example:
 
 ```
 Saved Research/Obsidian sync options for cloud agents.md (5 sources, 2 open questions).
 Logged it in Daily/2026-09-04.md.
+Added a back-link in Research/Cloud agent file access.md.
 ```
 
 ## Rules
